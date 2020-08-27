@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"image/color"
+	test_lib "lib"
 	"strings"
 	"unicode"
-	test_lib "lib"
-	"image/color"
+	// chapter 4
 )
 
 func f1() {
@@ -49,6 +50,58 @@ type rect1 struct {
 func resize(rect *rect1, width, height int) {
 	(*rect).x1 += width
 	rect.y1 += height
+}
+
+// chapter 4
+type quantity int
+type dozen []quantity
+
+func display(i int) {
+	fmt.Print(i)
+	fmt.Print("\n")
+}
+
+// method
+func (q quantity) greaterThan(i int) bool { return int(q) > i }
+func (q *quantity) increment()            { *q++ }
+func (q *quantity) decrement()            { *q-- }
+
+// struct
+type Item struct {
+	name     string
+	price    float64
+	quantity int
+}
+
+func (t Item) Cost() float64 {
+	return t.price * float64(t.quantity)
+}
+
+type dimension struct {
+	width, height, length float64
+}
+
+type Item2 struct {
+	name             string
+	price            float64
+	quantity         int
+	packageDimension dimension
+	itemDimension    dimension
+}
+
+// interface
+type shaper interface {
+	area() float64
+}
+
+func describe(s shaper) {
+	fmt.Println("area :", s.area())
+}
+
+type rect struct{ width, height float64 }
+
+func (r rect) area() float64 {
+	return r.width * r.height
 }
 
 func main() {
@@ -100,16 +153,16 @@ func main() {
 	fmt.Println("2.5.4 init() 함수 - End")
 
 	s := "hello"
-	for j := 0;j < len(s);j++ {
+	for j := 0; j < len(s); j++ {
 		fmt.Printf("j[%d] = %c\n", j, s[j])
 	}
 	fmt.Println(s[1:4])
 
-	var a[5] int
+	var a [5]int
 
 	fmt.Println("len(a) = ", len(a))
 
-	numbers := []int{3, 4, 5, 7, 8, 4, 6, 8 , 32, 4}
+	numbers := []int{3, 4, 5, 7, 8, 4, 6, 8, 32, 4}
 	for i, v := range numbers {
 		fmt.Println(i, v)
 	}
@@ -142,7 +195,7 @@ func main() {
 	fmt.Println(ns1)
 
 	k := make([]int, 0, 3)
-	for i := 0;i < 9;i++ {
+	for i := 0; i < 9; i++ {
 		k = append(k, i)
 		fmt.Printf("len: %d, cap: %d, %v\n", len(k), cap(k), k)
 	}
@@ -155,8 +208,8 @@ func main() {
 	fmt.Println(numberMap)
 
 	numberMap1 := map[string]int{
-		"one": 1,
-		"two": 2,
+		"one":   1,
+		"two":   2,
 		"three": 3,
 	}
 	fmt.Println(numberMap1)
@@ -191,4 +244,59 @@ func main() {
 	rect2 := rect1{2, 4, 10, 20, color.RGBA{0xff, 0, 0, 0xff}}
 	resize(&rect2, 10, 10)
 	fmt.Println(rect2)
+
+	// chapter 4
+	var d dozen
+	for i := quantity(1); i <= 12; i++ {
+		d = append(d, i)
+	}
+	fmt.Println(d)
+
+	var q quantity = 3
+	display(int(q))
+
+	// method
+	q = quantity(3)
+	q.increment()
+	fmt.Printf("Is q(%d) greater than %d? %t \n", q, 3, q.greaterThan(3))
+	q.decrement()
+	fmt.Printf("Is q(%d) greater than %d? %t \n", q, 3, q.greaterThan(3))
+
+	// struct
+	shirt := Item{name: "Men's Slim-Fit Shirt", price: 25000, quantity: 3}
+	shoes := Item{name: "Sports Shoes", price: 30000}
+	dress := Item{name: "Stripe Shift Dress", quantity: 2}
+	phone := Item{"Amazon Fire Phone, 32GB", 21900, 1}
+
+	fmt.Println(shirt)
+	fmt.Println(shoes)
+	fmt.Println(dress)
+	fmt.Println(phone)
+
+	var t Item
+	t.name = "Men's Slim-Fit Shirt"
+	t.price = 25000
+	t.quantity = 3
+
+	fmt.Println(t.name)
+	fmt.Println(t.price)
+	fmt.Println(t.quantity)
+	fmt.Println(t.Cost())
+
+	shoes2 := Item2{
+		"Sports Shoes", 30000, 2,
+		dimension{30, 270, 20},
+		dimension{50, 300, 30},
+	}
+
+	fmt.Printf("%#v\n", shoes2.itemDimension)
+	fmt.Printf("%#v\n", shoes2.packageDimension)
+
+	fmt.Println(shoes2.packageDimension.width)
+	fmt.Println(shoes2.packageDimension.height)
+	fmt.Println(shoes2.packageDimension.length)
+
+	// interface
+	r2 := rect{3, 4}
+	describe(r2)
 }
