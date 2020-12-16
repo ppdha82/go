@@ -1,8 +1,7 @@
 package main
 
-import (
-	chapter5 "chap5"
-)
+import "var_const"
+import "chap5"
 
 func main() {
 	// chapter 2
@@ -13,4 +12,6 @@ func main() {
 	//chapter4.Run_exam()
 	// chapter 5
 	chapter5.RunExam()
+	// var_const
+	var_const.RunExam()
 }
