@@ -1,7 +1,7 @@
 package main
 
-import "var_const"
 import "chap5"
+import "study"
 
 func main() {
 	// chapter 2
@@ -13,5 +13,7 @@ func main() {
 	// chapter 5
 	chapter5.RunExam()
 	// var_const
-	var_const.RunExam()
+	// var_const.RunExam()
+	// condtion expression
+	study.RunExam()
 }
