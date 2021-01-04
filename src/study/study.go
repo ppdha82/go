@@ -14,6 +14,30 @@ func RunExam() {
 	forLoop()
 	funcTest()
 	anonyFuncTest()
+	// closure
+	runClosure()
+}
+
+func nextValue() func() int {
+	i := 0
+	return func() int {
+		i++
+		return i
+	}
+}
+
+func runClosure() {
+	next := nextValue()
+
+	fmt.Println("[next value]")
+	fmt.Println(next())
+	fmt.Println(next())
+	fmt.Println(next())
+
+	fmt.Println("[anotherNext value]")
+	anotherNext := nextValue()
+	fmt.Println(anotherNext())
+	fmt.Println(anotherNext())
 }
 
 func anonyFuncTest() {
