@@ -16,6 +16,70 @@ func RunExam() {
 	anonyFuncTest()
 	// closure
 	runClosure()
+	// slice
+	runSlice()
+}
+
+func runSlice() {
+	// dynamic size
+	var a []int
+	a = []int{1, 2, 3}
+	a[1] = 10
+	fmt.Println("a = ", a)
+
+	// with make function
+	s := make([]int, 5, 10)
+	fmt.Println("len(s) = ", len(s), " cap(s) = ", cap(s))
+
+	// deal with nil
+	var t []int
+	if t == nil {
+		fmt.Println("t is same nil")
+	}
+	fmt.Println("len(t) = ", len(t), " cap(t) = ", cap(t))
+
+	// sub-slice
+	r := []int{0, 1, 2, 3, 4, 5}
+	r = r[2:5]
+	fmt.Println("r[2:5] = ", r)
+	r = r[1:]
+	fmt.Println("r[1:] = ", r)
+
+	// append & copy
+	q := []int{0, 1}
+	// Append one
+	q = append(q, 2)
+	// Extend multiple attribute
+	q = append(q, 3, 4, 5)
+	fmt.Println("q = ", q)
+
+	// make slice as len=0, cap=3
+	sliceA := make([]int, 0, 3)
+	// append continuously a attribute
+	for i := 1; i <= 15; i++ {
+		sliceA = append(sliceA, i)
+		// show capacity and length of slice
+		fmt.Println("len(sliceA) = ", len(sliceA), " cap(sliceA) = ", cap(sliceA))
+	}
+	fmt.Println("sliceA = ", sliceA)
+
+	// attach from another slice to original slice
+	sliceC := []int{1, 2, 3}
+	sliceB := []int{4, 5, 6}
+
+	sliceC = append(sliceC, sliceB...)
+	fmt.Println("sliceC = ", sliceC)
+
+	// copy source slice to target slice
+	source := []int{0, 1, 2}
+	target := make([]int, len(source), cap(source))
+	copy(target, source)
+	fmt.Println("target = ", target)
+	println("len(target) = ", len(target), " cap(target) = ", cap(target))
+
+	// error test
+	errorSlice := make([]int, 4, 2)
+	fmt.Println("len(errorSlice) = ", len(errorSlice), " cap(errorSlice) = ", cap(errorSlice))
 }
 
 func nextValue() func() int {
