@@ -18,6 +18,51 @@ func RunExam() {
 	runClosure()
 	// slice
 	runSlice()
+	// map
+	runMap()
+}
+
+func runMap() {
+	var m map[int]string
+	m = make(map[int]string)
+	m[901] = "Apple"
+	m[134] = "Grape"
+	m[777] = "Tomato"
+
+	str := m[134]
+	fmt.Println("str = ", str)
+	fmt.Println("m[777] = ", m[777])
+
+	noData := m[999]
+	fmt.Println("noData = ", noData)
+
+	delete(m, 777)
+	fmt.Println("remove m[777]")
+	fmt.Println("m[777] = ", m[777])
+
+	// bool
+	tickers := map[string]string{
+		"GOOG": "Google Inc",
+		"MSFT": "Microsoft",
+		"FB":   "Facebook",
+		"AMZN": "Amazon",
+	}
+	val, exists := tickers["MSFT"]
+	if !exists {
+		fmt.Println("No MSFT ticker(val = ", val, ")")
+	} else {
+		fmt.Println("MSFT is ", tickers["MSFT"])
+	}
+	// map with for loop
+	myMap := map[string]string{
+		"A": "Apple",
+		"B": "Banana",
+		"C": "Charlie",
+	}
+
+	for key, val := range myMap {
+		fmt.Println("key = ", key, " val = ", val)
+	}
 }
 
 func runSlice() {
@@ -78,8 +123,8 @@ func runSlice() {
 	println("len(target) = ", len(target), " cap(target) = ", cap(target))
 
 	// error test
-	errorSlice := make([]int, 4, 2)
-	fmt.Println("len(errorSlice) = ", len(errorSlice), " cap(errorSlice) = ", cap(errorSlice))
+	// errorSlice := make([]int, 4, 2)
+	// fmt.Println("len(errorSlice) = ", len(errorSlice), " cap(errorSlice) = ", cap(errorSlice))
 }
 
 func nextValue() func() int {
